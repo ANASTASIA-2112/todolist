@@ -1,54 +1,49 @@
+import React from "react";
 
-import React, {FC} from 'react';
-import {type} from "os";
+type PropsType = {
+    tasks?: string
+    task: Array<TaskType>
 
-type TodoListPropsType = {
-    title: string
-    tasks: Array<TaskType>
+
 }
 
-export type TaskType = {
+type TaskType = {
     id: number
     title: string
     isDone: boolean
+
 }
-
-const TodoList: FC<TodoListPropsType> = (props)  => {
-    let taskList;
-    if (props.tasks.length ===0) {
-        taskList = <span>Your taskList is empty</span>
-    }  else {
-        taskList = props.tasks.map((task) => {
-            return (
-                <li>
-                    <input type = "checkbox" checked = {task.isDone}/>
-                    <span>{task.title}</span>
-                </li>
-            )
-        })
-    }
-
+export const Todolist = (props: PropsType) => {
     return (
+        <div>
             <div>
-                <h3>{props.title}</h3>
-                <div>
-                    <input/>
-                    <button>+</button>
-                </div>
-                <ul>
-                    {taskList}
-                    <li><input type="checkbox" checked={true}/> <span>HTML&CSS</span></li>
-                    <li><input type="checkbox" checked={true}/> <span>JS</span></li>
-                    <li><input type="checkbox" checked={false}/> <span>React</span></li>
-                </ul>
-                <div>
-                    <button>All</button>
-                    <button>Active</button>
-                    <button>Completed</button>
-                </div>
+                <h3>{props.tasks}</h3>
+
+                <input/>
+                <button>
+                    +
+                </button>
             </div>
 
-    );
-}
+            <ul>
+                {props.task.map((el) => {
+                    return (
 
-export default TodoList;
+                        <ul key={el.id}>
+                            <input type="checkbox" checked={el.isDone}/>
+                            <span>{el.title}</span>
+                        </ul>
+                    )
+                })}
+            </ul>
+
+
+            <div>
+                <button>All</button>
+                <button>Active</button>
+                <button>completed</button>
+            </div>
+        </div>
+    )
+}
+export default Todolist;
